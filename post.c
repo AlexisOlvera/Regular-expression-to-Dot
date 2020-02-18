@@ -2,8 +2,10 @@
 #include<stdlib.h>
 #include "ElemP.h"
 #include "Pila.h"
+#include "Estados.h"
+#include "AFN.h"
 
-int main(int argc, char *argv[]){
+int main(){
 	
 	char *in = "(a+.b)*|(a.c.(a|b+))*";
 
@@ -51,12 +53,12 @@ int main(int argc, char *argv[]){
 	}
 	i=0;
 	int final = -1, inicio = 0;
-	while(!isempty(pos)){
+	while(i<=0){
 		switch(top(pos)){
 			case '|':
-				printf("%d -> {%d, %d} [label = \"&epsilon;\"];\n", inicio, ++i, ++i);
+				printf("%d -> {%d, %d} [label = \"&epsilon;\"];\n", inicio, i++, ++i);
 				inicio = i-1;
-				printf("{%d, %d} -> %d [label = \"&epsilon;\"];\n", ++i, ++i, final);
+				printf("{%d, %d} -> %d [label = \"&epsilon;\"];\n", i++, ++i, final);
 				final = i-1;
 				break;
 			case '+':
@@ -67,7 +69,8 @@ int main(int argc, char *argv[]){
 				final = i-1;
 				break;
 			case '*':
-				printf("%d \n", );
+				printf("\n");
+				break;
 		}
 		if(!final)
 			final=i;
